@@ -60,6 +60,22 @@ router.post('/editAnimal', (req, res) => {
     });
 });
 
+router.post('/deleteAnimal', (req, res) => {
+  Animal.deleteOne({ _id: req.body._id })
+    .then(result => {
+      if(result.n < 1){
+        res.sendStatus(NOT_FOUND);
+      }else{
+        res.sendStatus(OK);
+      }
+    })
+    .catch(() => {
+      res.sendStatus(BAD_REQUEST);
+    });
+});
+
+
+
 
 
 
