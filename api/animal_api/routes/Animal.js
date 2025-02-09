@@ -29,9 +29,37 @@ router.post('/createAnimal', (req, res) => {
 router.get('/getAnimals', (req, res) => {
   Animal.find()
     .then(items => res.status(OK).send(items))
-    .atch(error => {
+    .catch(error => {
       res.sendStatus(BAD_REQUEST);
     });
 });
+
+router.post('/editAnimal', (req, res) => {
+  const{
+    name,
+    description,
+    lifespan,
+    _id,
+  } = req.body;
+  Animal.findOne({ _id })
+    .then(Animal => {
+      Animal.name = name || Animal.name;
+      Animal.description = description || Animal.description;
+      Animal.lifespan = lifespan || Animal.lifespan;
+      Animal
+        .save()
+        .then(() => {
+          res.sendStatus(OK);
+        })
+        .catch(() => {
+          res.sendStatus(BAD_REQUEST);
+        });
+    })
+    .catch(() => {
+      res.sendStatus(NOT_FOUND);
+    });
+});
+
+
 
 
