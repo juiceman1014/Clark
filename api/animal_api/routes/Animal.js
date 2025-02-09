@@ -25,3 +25,13 @@ router.post('/createAnimal', (req, res) => {
       (error) => res.sendStatus(BAD_REQUEST)
     );
 });
+
+router.get('/getAnimals', (req, res) => {
+  Animal.find()
+    .then(items => res.status(OK).send(items))
+    .atch(error => {
+      res.sendStatus(BAD_REQUEST);
+    });
+});
+
+
