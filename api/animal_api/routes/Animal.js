@@ -74,8 +74,4 @@ router.post('/deleteAnimal', (req, res) => {
     });
 });
 
-
-
-
-
-
+module.exports = router;
