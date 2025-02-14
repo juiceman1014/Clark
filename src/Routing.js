@@ -32,6 +32,7 @@ import sendUnsubscribeEmail from './Pages/Profile/admin/SendUnsubscribeEmail';
 import Messaging from './Pages/Messaging/Messaging.js';
 
 import AnimalPage from './Pages/Animals/Animal';
+import AnimalAdmin from './Pages/Animals/AdminAnimals.js';
 
 export default function Routing({ appProps }) {
   const userIsAuthenticated = appProps.authenticated;
@@ -48,6 +49,13 @@ export default function Routing({ appProps }) {
     {
       Component: Overview,
       path: '/user-manager',
+      allowedIf: userIsOfficerOrAdmin,
+      redirect: '/',
+      inAdminNavbar: true
+    },
+    {
+      Component: AnimalAdmin,
+      path: '/animal-admin',
       allowedIf: userIsOfficerOrAdmin,
       redirect: '/',
       inAdminNavbar: true
