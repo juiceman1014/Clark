@@ -31,3 +31,40 @@ export async function createAnimal(newAnimal, token) {
     });
   return status;
 }
+
+export async function editAnimal(updatedAnimal, token){
+  let status = new ApiResponse();
+  await axios
+    .post(ANIMAL_API_URL + '/Animal/editAnimal', updatedAnimal, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      status.responseData = res.data;
+    })
+    .catch((err) => {
+      status.error = true;
+      status.responseData = err;
+    });
+  return status;
+}
+
+export async function deleteAnimal(animalId, token){
+  let status = new ApiResponse();
+  await axios
+    .post(ANIMAL_API_URL + '/Animal/deleteAnimal', { _id: animalId}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      status.responseData = res.data;
+    })
+    .catch((err) => {
+      status.error = true;
+      status.responseData = err;
+    });
+  return status;
+}
+

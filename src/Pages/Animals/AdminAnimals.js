@@ -1,17 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { getAllAnimals, createAnimal } from '../../APIFunctions/Animals';
+import { getAllAnimals, createAnimal, editAnimal, deleteAnimal } from '../../APIFunctions/Animals';
 
 export default function AnimalPage(props) {
   const [animals, setAnimals] = useState([]);
   const [description, setDescription] = useState();
   const [name, setName] = useState();
   const [lifespan, setLifespan] = useState();
+  const [editingAnimalId, setEditingAnimalId] = useState(null);
+  const [editedAnimal, setEditedAnimal] = useState({name: '', description: '', lifespan: ''});
 
   async function getAnimalsFromDB() {
     const animalsFromDB = await getAllAnimals();
     if (!animalsFromDB.error) {
       setAnimals(animalsFromDB.responseData);
     }
+  }
+
+  async function handleEdit(animalId){
+    await editAnimal({ _id: animalId, ...editedAnimal }, props.user.token);
+    setEditingAnimalId(null);
+    getAnimalsFromDB();
+  }
+
+  async function handleDelete(animalId){
+    await deleteAnimal(animalId, props.user.token);
+    getAnimalsFromDB();
   }
 
   useEffect(() => {
@@ -103,21 +116,77 @@ export default function AnimalPage(props) {
             </tr>
           </thead>
           <tbody>
-            {animals.map((animal) => {
-              return (
-                <tr key={animal._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                  <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {animal.name}
-                  </th>
-                  <td className="px-6 py-4">
-                    {animal.description}
-                  </td>
-                  <td className="px-6 py-4">
-                    {animal.lifespan}
-                  </td>
-                </tr>
-              );
-            })}
+            {animals.map((animal) => (
+              <tr key={animal._id} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'>
+                {editingAnimalId === animal._id ? (
+                  // Editing display
+                  <>
+                    <td className='px-6 py-4'>
+                      <input
+                        type='text'
+                        value={editedAnimal.name}
+                        onChange={(e) => setEditedAnimal({ ...editedAnimal, name: e.target.value })}
+                        className='w-full p-2 border rounded-md'
+                      />
+                    </td>
+                    <td className='px-6 py-4'>
+                      <input
+                        type='text'
+                        value={editedAnimal.description}
+                        onChange={(e) => setEditedAnimal({ ...editedAnimal, description: e.target.value })}
+                        className='w-full p-2 border rounded-md'
+                      />
+                    </td>
+                    <td className='px-6 py-4'>
+                      <input
+                        type='text'
+                        value={editedAnimal.lifespan}
+                        onChange={(e) => setEditedAnimal({ ...editedAnimal, lifespan: e.target.value })}
+                        className='w-full p-2 border rounded-md'
+                      />
+                    </td>
+                    <td className='px-6 py-4'>
+                      <button
+                        className='bg-green-500 text-white px-3 py-1 rounded-md mr-2'
+                        onClick={() => handleEdit(animal._id)}
+                      >
+                        Save
+                      </button>
+                      <button
+                        className='bg-gray-500 text-white px-3 py-1 rounded-md'
+                        onClick={() => setEditingAnimalId(null)}
+                      >
+                        Cancel
+                      </button>
+                    </td>
+                  </>
+                ) : (
+                  // Nonediting display
+                  <>
+                    <td className='px-6 py-4'>{animal.name}</td>
+                    <td className='px-6 py-4'>{animal.description}</td>
+                    <td className='px-6 py-4'>{animal.lifespan}</td>
+                    <td className='px-6 py-4'>
+                      <button
+                        className='bg-yellow-500 text-white px-3 py-1 rounded-md mr-2'
+                        onClick={() => {
+                          setEditingAnimalId(animal._id);
+                          setEditedAnimal(animal);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className='bg-red-500 text-white px-3 py-1 rounded-md'
+                        onClick={() => handleDelete(animal._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </>
+                )}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
