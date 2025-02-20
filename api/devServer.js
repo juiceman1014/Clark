@@ -6,4 +6,5 @@ if (typeof module !== 'undefined' && !module.parent) {
   require('./main_endpoints/server');
   require('./cloud_api/server');
   require('./animal_api/server');
+  require('./desert_api/server');
 }
