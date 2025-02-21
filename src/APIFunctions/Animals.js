@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ApiResponse } from './ApiResponses';
 
-let ANIMAL_API_URL = 'http://localhost:8084/animal_api';
+let ANIMAL_API_URL = 'http://localhost:8085/animal_api';
 
 export async function getAllAnimals() {
   let status = new ApiResponse();
