@@ -10,6 +10,7 @@ export default function UserNavBar(props) {
     { title: 'About', route: '/about' },
     { title: 'Projects', route: '/projects' },
     { title: 'Animals', route: '/animals' },
+    { title: 'Deserts', route: '/deserts' },
   ];
 
 

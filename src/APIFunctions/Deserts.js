@@ -17,10 +17,10 @@ export async function getAllDeserts() {
   return status;
 }
 
-export async function createAnimal(newAnimal, token) {
+export async function createDesert(newDesert, token) {
   let status = new ApiResponse();
   await axios
-    .post(ANIMAL_API_URL + '/Animal/createAnimal', newAnimal, {
+    .post(DESERT_API_URL + '/Desert/createDesert', newDesert, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -32,10 +32,10 @@ export async function createAnimal(newAnimal, token) {
   return status;
 }
 
-export async function editAnimal(updatedAnimal, token){
+export async function editDesert(updatedDesert, token){
   let status = new ApiResponse();
   await axios
-    .post(ANIMAL_API_URL + '/Animal/editAnimal', updatedAnimal, {
+    .post(DESERT_API_URL + '/Desert/editDesert', updatedDesert, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -50,10 +50,10 @@ export async function editAnimal(updatedAnimal, token){
   return status;
 }
 
-export async function deleteAnimal(animalId, token){
+export async function deleteDesert(desertId, token){
   let status = new ApiResponse();
   await axios
-    .post(ANIMAL_API_URL + '/Animal/deleteAnimal', { _id: animalId}, {
+    .post(DESERT_API_URL + '/Desert/deleteDesert', { _id: desertId}, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

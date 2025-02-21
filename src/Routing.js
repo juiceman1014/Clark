@@ -35,6 +35,7 @@ import AnimalPage from './Pages/Animals/Animal';
 import AnimalAdmin from './Pages/Animals/AdminAnimals.js';
 
 import DesertPage from './Pages/Deserts/Desert.js';
+import DesertAdmin from './Pages/Deserts/AdminDeserts.js';
 
 export default function Routing({ appProps }) {
   const userIsAuthenticated = appProps.authenticated;
@@ -58,6 +59,13 @@ export default function Routing({ appProps }) {
     {
       Component: AnimalAdmin,
       path: '/animal-admin',
+      allowedIf: userIsOfficerOrAdmin,
+      redirect: '/',
+      inAdminNavbar: true
+    },
+    {
+      Component: DesertAdmin,
+      path: '/desert-admin',
       allowedIf: userIsOfficerOrAdmin,
       redirect: '/',
       inAdminNavbar: true
