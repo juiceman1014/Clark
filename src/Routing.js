@@ -34,6 +34,8 @@ import Messaging from './Pages/Messaging/Messaging.js';
 import AnimalPage from './Pages/Animals/Animal';
 import AnimalAdmin from './Pages/Animals/AdminAnimals.js';
 
+import DesertPage from './Pages/Deserts/Desert.js';
+
 export default function Routing({ appProps }) {
   const userIsAuthenticated = appProps.authenticated;
   const userIsMember =
@@ -158,6 +160,7 @@ export default function Routing({ appProps }) {
     { Component: ProjectsPage, path: '/projects'},
     { Component: EmailPreferencesPage, path: '/emailPreferences' },
     { Component: AnimalPage, path: '/animals'},
+    { Component: DesertPage, path: '/deserts'},
   ];
   return (
     <Router>
