@@ -4,7 +4,7 @@ function main() {
   const API_ENDPOINTS = [
     __dirname + '/routes/Desert.js',
   ];
-  const desertServer = new SceHttpServer(API_ENDPOINTS, 8085, '/desert_api/');
+  const desertServer = new SceHttpServer(API_ENDPOINTS, 8084, '/desert_api/');
   desertServer.initializeEndpoints().then(() => {
     desertServer.openConnection();
   });
