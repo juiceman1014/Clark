@@ -35,6 +35,9 @@ export default function DesertPage() {
                 <th scope="col" className="px-6 py-3">
                   Description
                 </th>
+                <th scope="col" className="px-6 py-3">
+                  Rating
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -51,6 +54,7 @@ export default function DesertPage() {
                       {desert.title}
                     </th>
                     <td className="px-6 py-4">{desert.description}</td>
+                    <td className="px-6 py-4">{desert.rating}</td>
                   </tr>
                 );
               })}
